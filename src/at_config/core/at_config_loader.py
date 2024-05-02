@@ -1,6 +1,7 @@
 from at_config.core.at_config_handler import ATComponentConfig
 from at_config.core.at_config_item import RawDataConfigItem, LocalFileConfigItem
 from schema import Schema, Or, And, Use, Optional
+from typing import Dict
 
 
 RAW_DATA_ITEM_SCHEMA = lambda parameter: Or(
@@ -50,9 +51,9 @@ CONFIG_SCHEMA = And(
     })
 )
 
-def load_config(data):
+def load_config(data: dict) -> Dict[str, ATComponentConfig]:
     return CONFIG_SCHEMA.validate(data)
 
-def load_component_config(data):
+def load_component_config(data: dict) -> ATComponentConfig:
     return COMPONENT_CONFIG_SCHEMA.validate(data)
 
