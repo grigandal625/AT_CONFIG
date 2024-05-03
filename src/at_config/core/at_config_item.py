@@ -3,9 +3,11 @@ import os
 import json
 from xml.etree.ElementTree import Element, fromstring
 import yaml
+from typing import Union
 
 class ATConfigItem:
     parameter: str
+    data: Union[dict, str, Element]
 
     def __init__(self, parameter: str, *args, **kwargs) -> None:
         self.parameter = parameter
