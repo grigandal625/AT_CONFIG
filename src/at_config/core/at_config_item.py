@@ -88,6 +88,7 @@ class LocalFileConfigItem(FileConfigItem):
             ext_to_class = {
                 '.json': JSONFileItem,
                 '.yaml': YAMLFileItem,
+                '.yml': YAMLFileItem,
                 '.xml': XMLFileItem
             }
             file_ext = os.path.splitext(path)[1]
