@@ -26,10 +26,12 @@ with pathlib.Path('requirements.txt').open() as requirements_txt:
         in pkg_resources.parse_requirements(requirements_txt)
     ]  
 
+VERSION = os.getenv('PACKAGE_VERSION', '0.0.dev7')
+
 if __name__ == '__main__':
     setup(
         name='at-config',
-        version=os.getenv('PACKAGE_VERSION', '0.0.dev5'),
+        version=VERSION,
         packages=find_packages(where='src'),
         package_dir={'': 'src'},
         description='AT-TECHNOLOGY configuration structures.',
