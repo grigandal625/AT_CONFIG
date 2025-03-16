@@ -1,5 +1,6 @@
-from at_config.core.at_config_item import ATConfigItem
 from typing import Dict
+
+from at_config.core.at_config_item import ATConfigItem
 
 
 class ATComponentConfig:
@@ -12,10 +13,7 @@ class ATComponentConfig:
     def __dict__(self) -> dict:
         def exclude_parameter(item: ATConfigItem) -> dict:
             res = item.__dict__
-            res.pop('parameter', None)
-            return res 
+            res.pop("parameter", None)
+            return res
 
-        return {
-            item.parameter: exclude_parameter(item)
-            for item in self.items.values()
-        }
+        return {item.parameter: exclude_parameter(item) for item in self.items.values()}
