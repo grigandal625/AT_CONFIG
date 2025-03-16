@@ -34,3 +34,18 @@ async def test_load_config():
     assert result['ATSimulationMocking'].items['sm_run'].path == '/src/sm_run.xml'
     assert result['ATJoint'].items['at_simulation'].data == 'ATSimulationMocking'
     assert result['ATJoint'].items['at_simulation_process'].data == 1
+
+    config = {
+        key: value.__dict__ for key, value in result.items()
+    }
+
+    result = await load_config(config)
+    assert result is not None
+    assert result['ATSolver'].items['kb'].component == 'ATKrlEditor'
+    assert result['ATSolver'].items['kb'].method == 'get_kb'
+    assert result['ATSolver'].items['kb'].method_args == {'id': 5}
+    assert result['ATTemporalSolver'].items['kb'].path == '/src/knowledge_base.xml'
+    assert result['ATSimulationMocking'].items['sm_run'].path == '/src/sm_run.xml'
+    assert result['ATJoint'].items['at_simulation'].data == 'ATSimulationMocking'
+    assert result['ATJoint'].items['at_simulation_process'].data == 1
+
