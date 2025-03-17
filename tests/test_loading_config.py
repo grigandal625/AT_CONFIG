@@ -1,6 +1,7 @@
 from at_config.core.at_config_loader import load_config
 import yaml
 import pytest
+import json
 
 pytest_plugins = ('pytest_asyncio',)
 
@@ -22,7 +23,7 @@ async def test_load_config():
                 path: /src/sm_run.xml # файл прогона ИМ
         ATJoint: # конфигурация компонента поддержки совместного функционирования
             at_simulation: ATSimulationMocking # имя компонента для отправки сообщений, предназначенных подсистеме ИМ (по умолчанию ATSimulation)
-            at_simulation_process: 1
+            at_simulation_file: 1
     """)
 
     result = await load_config(data.get('config'))
@@ -33,11 +34,13 @@ async def test_load_config():
     assert result['ATTemporalSolver'].items['kb'].path == '/src/knowledge_base.xml'
     assert result['ATSimulationMocking'].items['sm_run'].path == '/src/sm_run.xml'
     assert result['ATJoint'].items['at_simulation'].data == 'ATSimulationMocking'
-    assert result['ATJoint'].items['at_simulation_process'].data == 1
+    assert result['ATJoint'].items['at_simulation_file'].data == 1
 
     config = {
         key: value.__dict__ for key, value in result.items()
     }
+
+    json.dumps(config)
 
     result = await load_config(config)
     assert result is not None
@@ -47,5 +50,5 @@ async def test_load_config():
     assert result['ATTemporalSolver'].items['kb'].path == '/src/knowledge_base.xml'
     assert result['ATSimulationMocking'].items['sm_run'].path == '/src/sm_run.xml'
     assert result['ATJoint'].items['at_simulation'].data == 'ATSimulationMocking'
-    assert result['ATJoint'].items['at_simulation_process'].data == 1
+    assert result['ATJoint'].items['at_simulation_file'].data == 1
 
